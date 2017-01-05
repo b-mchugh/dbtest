@@ -10,7 +10,7 @@ cur = conn.cursor()
 cur.execute("CREATE TABLE IF NOT EXISTS test (id serial PRIMARY KEY, num integer, data varchar);")
 cur.execute("INSERT INTO test (num, data) VALUES (%s, %s)", (100, "abc'def"))
 cur.execute("SELECT * FROM test;")
-stuff = cur.fetchone()
+stuff = cur.fetchall()
 conn.commit()
 cur.close()
 conn.close()
@@ -23,7 +23,8 @@ class RH(BaseHTTPRequestHandler):
 		message = ['myapp test1' + 'Client: ' + self.address_string() + '<br>',
 					'Server: ' + IP + ' aka ' + hostname + '<br>',
 					'Date: ' + self.date_time_string() + '<br>']
-		message.append(str(stuff))
+		for i in stuff:
+			message.append(str(i) + '<br>')
 		for i in message:
 			print(i)
 			self.wfile.write(bytes(i, "utf8"))
