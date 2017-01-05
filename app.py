@@ -7,7 +7,7 @@ IP = socket.gethostbyname(hostname)
 
 conn = psycopg2.connect("dbname=sampledb user=userEYQ password=ch6YJjwttWXGbk1S host=172.30.171.226 port=5432")
 cur = conn.cursor()
-cur.execute("CREATE TABLE test (id serial PRIMARY KEY, num integer, data varchar);")
+cur.execute("CREATE TABLE IF NOT EXISTS test (id serial PRIMARY KEY, num integer, data varchar);")
 cur.execute("INSERT INTO test (num, data) VALUES (%s, %s)", (100, "abc'def"))
 cur.execute("SELECT * FROM test;")
 stuff = cur.fetchone()
